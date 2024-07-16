@@ -834,6 +834,11 @@ svelte@^4.2.7:
     magic-string "^0.30.4"
     periscopic "^3.1.0"
 
+sveltekit-sse@^0.13.2:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/sveltekit-sse/-/sveltekit-sse-0.13.2.tgz#14e1493dd7fdc6a626e41a9e484dc2b176636f23"
+  integrity sha512-blEwtcDJxoLdt3lloiaJyWs9W0iYf7yL2B7FHBz6gKdUXHqaIGVwsVeGSDzlOpvKh/+F1GUXaF7i/EZXthrPaA==
+
 tiny-glob@^0.2.9:
   version "0.2.9"
   resolved "https://registry.npmjs.org/tiny-glob/-/tiny-glob-0.2.9.tgz"

@@ -2,6 +2,7 @@
   import {onMount} from "svelte";
   let voices: SpeechSynthesisVoice[] = [];
   let selectedVoice: SpeechSynthesisVoice | null = null;
+  let text = "";
 
   const speak = (text: string) => {
     if (text.trim() !== "") {
@@ -31,7 +32,8 @@
     console.log(eventSource);
     eventSource.addEventListener("message", (event) => {
       console.log(event.data);
-      speak(event.data);
+      text += event.data + "\n";
+      // speak(event.data);
     });
     eventSource.addEventListener("error", (event) => {
       console.error(event);
@@ -39,7 +41,4 @@
   });
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>
-  Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
-</p>
+<p>{text}</p>

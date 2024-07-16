@@ -27,7 +27,7 @@ export class SseManager {
     broadcast(data: string) {
         this.clients.forEach(item => {
             const message = `data: ${data}\n\n`;
-            item.client.emit('message', message);
+            item.client.emit('chat', message);
         });
     }
 }
