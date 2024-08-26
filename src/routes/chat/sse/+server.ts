@@ -2,11 +2,12 @@
 import {SseManager} from '$lib/server/SseManager';
 import type {RequestHandler} from '@sveltejs/kit';
 import {EventEmitter} from 'events';
+import {getRandomId} from '../../../utils/random';
 
 const encoder = new TextEncoder();
 
-export const GET: RequestHandler = async ({request}) => {
-    const randomId = Math.random().toString(36);
+export const GET: RequestHandler = async () => {
+    const randomId = getRandomId();
     const eventEmitter = new EventEmitter();
 
     const readableStream = new ReadableStream({

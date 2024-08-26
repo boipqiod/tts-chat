@@ -1,3 +1,4 @@
+import {ChatManager} from "$lib/server/ChatManager";
 import type EventEmitter from "events";
 
 export class SseManager {
@@ -24,9 +25,10 @@ export class SseManager {
         
     }
 
-    broadcast(data: string) {
+    broadcast(name: string, data: string) {
+        ChatManager.instance.addMessage({user: name, message: data});
         this.clients.forEach(item => {
-            const message = `data: ${data}\n\n`;
+            const message = `data: ${JSON.stringify({name, message: data})}\n\n`;
             item.client.emit('chat', message);
         });
     }
