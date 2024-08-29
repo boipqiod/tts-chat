@@ -22,8 +22,6 @@ export class ChatManager {
 
   getMessages() {
     this.cleanUpMessages();
-    console.log('messages', this.messages);
-    
     return this.messages;
   }
 
