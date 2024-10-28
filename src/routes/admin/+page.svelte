@@ -62,6 +62,10 @@ const onLogin = () => {
 
 </script>
 
+<svelte:head>
+  <title>TTS 관리자방</title>
+</svelte:head>
+
 <div>
   {#if isEnalbe === undefined}
     <div>...</div>

@@ -43,7 +43,24 @@
   };
 </script>
 
+<svelte:head>
+  <title>TTS 채팅방</title>
+</svelte:head>
+
 <div class={"container"}>
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <img src="/logo.png" alt="Svelte logo" width="50" height="50" />
+    <h1>TTS 채팅방</h1>
+  </div>
+  <details style={'width: 100%; margin: 20px 0;'}>
+    <summary> 간단한 설명 </summary>
+    <p>
+      실시간 채팅을 받아서 TTS로 전달해주는 채팅방입니다. 접속해 계시면 계속해서 채팅이 들릴 수 있습니다.
+      <br/>
+      TTS가 들리지 않을 수 있으니, 꼭 테스트를 해보세요.
+    </p>
+  </details>
+
   <div style="display: flex;">
     <select bind:value={selectedVoice} style="width: 100%;">
       {#each voices as voice}
@@ -56,7 +73,7 @@
   <textarea
     bind:this={textareaRef}
     readonly
-    rows={50}
+    rows={40}
     value={messages
       .map(({name, message}) => `[${name}]: ${message}`)
       .join("\n")}
