@@ -9,24 +9,30 @@
 
   let messages: {name: string; message: string}[] = [...data.messages];
 
-  onMount(() => {
-    window.speechSynthesis.onvoiceschanged = loadVoices;
+  let textareaRef: HTMLTextAreaElement;
 
+
+  onMount(() => {
+    setTimeout(loadVoices, 1000);
     const eventSource = new EventSource("/chat/sse");
     eventSource.addEventListener("message", receiveSseMassage);
+    window.speechSynthesis.onvoiceschanged = loadVoices;
   });
 
   const loadVoices = () => {
     voices = window.speechSynthesis
       .getVoices()
       .filter((voice) => voice.lang === "ko-KR");
-    selectedVoice = voices[0];
+    if(voices.length > 0) selectedVoice = voices[0];
   };
 
   const receiveSseMassage = (event: MessageEvent) => {
     const receivedMessage = JSON.parse(event.data);
     messages = [...messages, receivedMessage];
     speak(receivedMessage.message);
+    setTimeout(()=>{
+      textareaRef.scrollTop = textareaRef.scrollHeight;
+    }, 100);
   };
 
   const speak = (text: string) => {
@@ -38,12 +44,17 @@
 </script>
 
 <div class={"container"}>
-  <select bind:value={selectedVoice}>
-    {#each voices as voice}
-      <option value={voice}>{voice.name}</option>
-    {/each}
-  </select>
+  <div style="display: flex;">
+    <select bind:value={selectedVoice} style="width: 100%;">
+      {#each voices as voice}
+        <option value={voice}>{voice.name}</option>
+      {/each}
+    </select>
+    <button style="width: 80px;" on:click={()=>{speak('테스트입니다.')}}>테스트</button>
+  </div>
+
   <textarea
+    bind:this={textareaRef}
     readonly
     rows={50}
     value={messages
@@ -56,6 +67,12 @@
   .container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 800px;
     gap: 1rem;
+  }
+  textarea{
+    font-size: 20px;
   }
 </style>
